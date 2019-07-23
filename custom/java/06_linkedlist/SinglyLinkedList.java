@@ -188,7 +188,51 @@ public class SinglyLinkedList {
         }
     }
 
+    //判断是否为回文
+    public boolean palindrome(){
+        if (head == null) 
+            return false;
 
+        Node p = head; //慢指针
+        Node q = head; //快指针
+        if (p.next == null) {
+            return true;//只有一个节点
+        }
+        while(q.next != null && q.next.next != null){
+            p = p.next;
+            q = q.next.next;
+        }
+
+        Node leftLink = null;
+        Node rightLink = null;
+        if (q.next == null) {
+            //p 一定为整个链表的重点，且节点数目为奇数
+            rightLink = p.next;
+            leftLink = inverseLinkList(p).next;
+        }else{
+            //p、q均为中点
+            rightLink = p.next;
+            leftLink = inverseLinkList(p);
+        }
+        return TFResult(leftLink,rightLink);
+    }
+
+    //无头节点的链表翻转
+    public Node inverseLinkList(Node p){
+        Node pre = null;
+        Node next = null;
+        Node r = head;
+        while( r != p){
+            next = r.next;
+
+            r.next = pre;
+            pre = r;
+            r = next;
+        }
+        r.next = pre;
+
+        return r;
+    }
 
 
 
