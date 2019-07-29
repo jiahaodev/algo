@@ -1,7 +1,7 @@
 package sort;
 
 /**
- * @author wangjunwei87
+ * @author JiahaoWu
  * @since 2019-03-10
  */
 public class KthSmallest {
@@ -27,11 +27,13 @@ public class KthSmallest {
         int pivot = arr[r];
 
         int i = p;
-        for (int j = p; j < r; j++) {
-            // 这里要是 <= ，不然会出现死循环，比如查找数组 [1,1,2] 的第二小的元素
-            if (arr[j] <= pivot) {
-                swap(arr, i, j);
+        for(int j = p; j < r; j++){
+            if (i == j) {
                 i++;
+            }else{
+                int tmp = a[i];
+                a[i++] = a[j];
+                a[j] = tmp;
             }
         }
 
