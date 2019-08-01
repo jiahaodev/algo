@@ -6,17 +6,19 @@ import java.util.Random;
  * 跳表的一种实现方法。
  * 跳表中存储的是正整数，并且存储的是不重复的。
  *
- * Author：ZHENG
+ * Author：JiahaoWu
+
+ todo: 不是很理解，有待学习。
  */
 public class SkipList {
 
-  private static final int MAX_LEVEL = 16;
+    private static final int MAX_LEVEL = 16;  //节点的个数
 
-  private int levelCount = 1;
+    private levelCount = 1;  //索引的层级数
 
-  private Node head = new Node();  // 带头链表
+    private Node head = new Node();//头节点
 
-  private Random r = new Random();
+    private Randow r = new Randow();
 
   public Node find(int value) {
     Node p = head;
@@ -81,43 +83,46 @@ public class SkipList {
     }
   }
 
-  // 随机 level 次，如果是奇数层数 +1，防止伪随机
- private int randomLevel() {
-    int level = 1;
-    for (int i = 1; i < MAX_LEVEL; ++i) {
-      if (r.nextInt() % 2 == 1) {
-        level++;
+
+    // 随机 level 次，如果是奇数层数 +1，防止伪随机
+   private int randomLevel() {
+      int level = 1;
+      for (int i = 1; i < MAX_LEVEL; ++i) {
+        if (r.nextInt() % 2 == 1) {
+          level++;
+        }
       }
+
+      return level;
     }
 
-    return level;
-  }
-
-  public void printAll() {
-    Node p = head;
-    while (p.forwards[0] != null) {
-      System.out.print(p.forwards[0] + " ");
-      p = p.forwards[0];
+    public void printAll() {
+      Node p = head;
+      while (p.forwards[0] != null) {
+        System.out.print(p.forwards[0] + " ");
+        p = p.forwards[0];
+      }
+      System.out.println();
     }
-    System.out.println();
-  }
 
-  public class Node {
-    private int data = -1;
-    private Node forwards[] = new Node[MAX_LEVEL];
-    private int maxLevel = 0;
+    public class Node{
+        public int data = -1;
+        public Node[] forwards = new Node[MAX_LEVEL];
+        public int maxLevel = 0;
 
-    @Override
-    public String toString() {
-      StringBuilder builder = new StringBuilder();
-      builder.append("{ data: ");
-      builder.append(data);
-      builder.append("; levels: ");
-      builder.append(maxLevel);
-      builder.append(" }");
+        @Override
+        public String toString() {
+          StringBuilder builder = new StringBuilder();
+          builder.append("{ data: ");
+          builder.append(data);
+          builder.append("; levels: ");
+          builder.append(maxLevel);
+          builder.append(" }");
 
-      return builder.toString();
+          return builder.toString();
+        }
+
     }
-  }
+ 
 
 }
